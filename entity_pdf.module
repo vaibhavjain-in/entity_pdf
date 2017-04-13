@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function entity_pdf_theme($existing, $type, $theme, $path) {
+  return array(
+    'htmlpdf' => [
+      'variables' => [
+        'title' => NULL,
+        'content' => [],
+        'url' => NULL,
+      ],
+    ],
+  );
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Add view_mode suggestions to all field templates.
+ *
+ * If you want view mode suggestions on the entity itself you will need Drupal
+ * core 8.3 minimally.
+ *
+ * @todo: This should be removed once https://www.drupal.org/node/2270883 is in
+ * Drupal core. (or so I think...)
+ */
+function entity_pdf_theme_suggestions_field_alter(&$suggestions, $variables, $hook) {
+  $view_mode = $variables['element']['#view_mode'];
+  if ($view_mode == '_custom' && isset($variables['element']['#ds_view_mode'])) {
+    $view_mode = $variables['element']['#ds_view_mode'];
+  }
+
+  // The order for the suggestion is not perfect, but good enough to work with.
+  $suggestions[] = 'field__' . $variables['element']['#field_name'] . '__' . $view_mode;
+}

@@ -1,0 +1,6 @@
+name: Entity PDF
+description: 'Provides PDF output for entities.'
+type: module
+core: 8.x
+dependencies:
+  - node
