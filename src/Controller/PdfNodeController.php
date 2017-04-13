@@ -19,6 +19,9 @@ class PdfNodeController extends NodeViewController {
       '#content' => parent::view($node, $view_mode, $langcode),
     ];
 
+    // If you want the test HTML output, uncomment this:
+    //return new Response(render($build), 200, []);
+
     $mpdf = new \Mpdf\Mpdf();
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($this->title($node));
