@@ -19,18 +19,20 @@ class PdfNodeController extends NodeViewController {
       '#content' => parent::view($node, $view_mode, $langcode),
     ];
 
+    $output = render($build);
+
     // If you want the test HTML output, uncomment this:
     //return new Response(render($build), 200, []);
 
     $mpdf = new \Mpdf\Mpdf();
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($this->title($node));
-    $mpdf->WriteHTML(render($build));
+    $mpdf->WriteHTML($output);
     $content = $mpdf->Output('', Destination::INLINE);
 
     $headers = [
       'Content-Type: application/pdf',
-      'Content-disposition: inline; filename="' . $this->title($node) . '"',
+      'Content-disposition: inline; filename="' . $this->title($node) . '.pdf"',
     ];
 
     return new Response($content, 200, $headers);

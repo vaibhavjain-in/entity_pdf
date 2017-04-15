@@ -23,7 +23,6 @@ class NodePDFLink extends Link {
   /**
    * Checks if the current user has access to view PDF's.
    *
-   * @todo: implement access based on view modes en node types.
    *
    * @return bool The current user has access to view the PDF.
    */
@@ -41,9 +40,10 @@ class NodePDFLink extends Link {
     if ($this->hasAccess()) {
       $config = $this->getConfiguration();
 
-      // Easiest and probably most portable way of outputting the correct URL, is
-      // by overriding the entity url in the build array. This will need to be
-      // kept in sync with any changes to \Drupal\ds\Plugin\DsField\Link.
+      // Easiest and probably most portable way of outputting the correct URL
+      // is by overriding the entity url in the build array from the parent.
+      // This will need to be kept in sync with any changes to
+      // \Drupal\ds\Plugin\DsField\Link between core updates. (if any)
       $build = parent::build();
       if ($build['#context']['is_link']) {
         $route_parameters = [
