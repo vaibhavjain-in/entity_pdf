@@ -1,6 +1,6 @@
 administer entity pdf settings:
   title: 'Administer entity pdf settings'
   restrict access: TRUE
-view pdf:
+view entity pdf:
   title: 'View PDF'
   restrict access: TRUE

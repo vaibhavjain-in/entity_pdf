@@ -30,7 +30,7 @@ class NodePDFLink extends Link {
     // @todo: dependency injection.
     $user = \Drupal::currentUser();
     // Check for permission
-    return $user->hasPermission('view pdf');
+    return $user->hasPermission('view entity pdf');
   }
 
   /**
