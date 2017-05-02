@@ -24,7 +24,10 @@ class PdfNodeController extends NodeViewController {
     // If you want the test HTML output, uncomment this:
     //return new Response(render($build), 200, []);
 
-    $mpdf = new \Mpdf\Mpdf();
+    $config = [
+      'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
+    ];
+    $mpdf = new \Mpdf\Mpdf($config);
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($this->title($node));
     $mpdf->WriteHTML($output);
