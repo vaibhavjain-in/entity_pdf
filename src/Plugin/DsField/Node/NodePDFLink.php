@@ -23,13 +23,13 @@ class NodePDFLink extends Link {
   /**
    * Checks if the current user has access to view PDF's.
    *
-   *
-   * @return bool The current user has access to view the PDF.
+   * @return bool
+   *   The current user has access to view the PDF.
    */
   public function hasAccess() {
     // @todo: dependency injection.
     $user = \Drupal::currentUser();
-    // Check for permission
+    // Check for permission.
     return $user->hasPermission('view entity pdf');
   }
 

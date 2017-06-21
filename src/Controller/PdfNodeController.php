@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_pdf\Controller;
 
+use Mpdf\Mpdf;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Controller\NodeViewController;
 use Mpdf\Output\Destination;
@@ -12,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PdfNodeController extends NodeViewController {
 
+  /**
+   * Public function view.
+   */
   public function view(EntityInterface $node, $view_mode, $langcode = NULL) {
     $build = [
       '#theme' => 'htmlpdf',
@@ -22,12 +26,11 @@ class PdfNodeController extends NodeViewController {
     $output = render($build);
 
     // If you want the test HTML output, uncomment this:
-    //return new Response(render($build), 200, []);
-
+    // return new Response(render($build), 200, []);.
     $config = [
       'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
     ];
-    $mpdf = new \Mpdf\Mpdf($config);
+    $mpdf = new Mpdf($config);
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($this->title($node));
     $mpdf->WriteHTML($output);
@@ -42,9 +45,12 @@ class PdfNodeController extends NodeViewController {
   }
 
   /**
+   * Public function title.
+   *
    * @inheritdoc
    */
   public function title(EntityInterface $node) {
     return parent::title($node);
   }
+
 }
