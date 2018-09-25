@@ -26,7 +26,7 @@ class PdfNodeController extends NodeViewController {
     $output = render($build);
 
     // If you want the test HTML output, uncomment this:
-    // return new Response(render($build), 200, []);.
+    // return new Response(render($build), 200, []);
     $config = [
       'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
     ];
