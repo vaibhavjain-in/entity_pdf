@@ -30,15 +30,16 @@ class PdfNodeController extends NodeViewController {
     $config = [
       'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
     ];
+    $filename = $node->label() . '.pdf';
     $mpdf = new Mpdf($config);
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
-    $mpdf->SetTitle($this->title($node));
+    $mpdf->SetTitle($filename);
     $mpdf->WriteHTML($output);
-    $content = $mpdf->Output('', Destination::INLINE);
+    $content = $mpdf->Output($filename, Destination::INLINE);
 
     $headers = [
-      'Content-Type: application/pdf',
-      'Content-disposition: inline; filename="' . $this->title($node) . '.pdf"',
+      'Content-Type' => 'application/pdf',
+      'Content-disposition' => 'attachment; filename="' . $filename . '"',
     ];
 
     return new Response($content, 200, $headers);
