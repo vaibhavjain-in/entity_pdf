@@ -1,7 +1,7 @@
 entity_pdf.settings:
   path: '/admin/config/system/entity_pdf'
   defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _form: '\Drupal\entity_pdf\Form\EntityPdfSettingsForm'
     _title: 'Entity pdf'
   requirements:
     _permission: 'administer entity pdf settings'

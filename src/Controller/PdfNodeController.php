@@ -27,10 +27,15 @@ class PdfNodeController extends NodeViewController {
 
     // If you want the test HTML output, uncomment this:
     // return new Response(render($build), 200, []);
+
+    // Get the filename from config and replace tokens.
+    $configFactory = \Drupal::service('config.factory');
+    $config = $configFactory->get('entity_pdf.settings');
+    $filename = \Drupal::token()->replace($config->get('filename'), [ 'node' => $node ], ['langcode' => $langcode]);
+
     $config = [
       'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
     ];
-    $filename = $node->label() . '.pdf';
     $mpdf = new Mpdf($config);
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($filename);
