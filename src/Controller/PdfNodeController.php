@@ -35,7 +35,7 @@ class PdfNodeController extends NodeViewController {
     $filename = \Drupal::token()->replace($config->get('filename'), [ 'node' => $node ], ['langcode' => $langcode]);
 
     // Get mpdf's default config and allow other modules to alter it.
-    $mpdf_config = (new ConfigVariables())->getDefaults();
+    $mpdf_config = [];
     $mpdf_config['tempDir'] = DRUPAL_ROOT . '/sites/default/files/entity_pdf';
     \Drupal::moduleHandler()->alter('mpdf_config', $mpdf_config);
 
