@@ -8,12 +8,3 @@ function entity_pdf_update_8001() {
     ->set('filename', '[node:nid].pdf')
     ->save();
 }
-
-/**
- * Set a flag for backwards compatibilty
- */
-function entity_pdf_update_8002() {
-  \Drupal::configFactory()->getEditable('entity_pdf.settings')
-    ->set('bc', '8001')
-    ->save();
-}

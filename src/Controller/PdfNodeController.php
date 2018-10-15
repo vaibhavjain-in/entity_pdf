@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_pdf\Controller;
 
+use Mpdf\Config\ConfigVariables;
 use Mpdf\Mpdf;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Controller\NodeViewController;
@@ -33,34 +34,21 @@ class PdfNodeController extends NodeViewController {
     $config = $configFactory->get('entity_pdf.settings');
     $filename = \Drupal::token()->replace($config->get('filename'), [ 'node' => $node ], ['langcode' => $langcode]);
 
-    $config = [
-      'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
-      'mode' => 'utf-8',
-      'format' => 'A4',
-      'margin_left' => 0,
-      'margin_right' => 0,
-      'margin_top' => 0,
-      'margin_bottom' => 0,
-      'margin_header' => 0,
-      'margin_footer' => 0,
-    ];
-    if (\Drupal::config('entity_pdf.settings')->get('bc') == 8001) {
-      $config = [
-        'tempDir' => DRUPAL_ROOT . '/sites/default/files/entity_pdf',
-      ];
-    }
+    // Get mpdf's default config and allow other modules to alter it.
+    $mpdf_config = (new ConfigVariables())->getDefaults();
+    $mpdf_config['tempDir'] = DRUPAL_ROOT . '/sites/default/files/entity_pdf';
+    \Drupal::moduleHandler()->alter('mpdf_config', $mpdf_config);
 
-    $mpdf = new Mpdf($config);
+    // Build and return the pdf.
+    $mpdf = new Mpdf($mpdf_config);
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($filename);
     $mpdf->WriteHTML($output);
     $content = $mpdf->Output($filename, Destination::INLINE);
-
     $headers = [
       'Content-Type' => 'application/pdf',
       'Content-disposition' => 'attachment; filename="' . $filename . '"',
     ];
-
     return new Response($content, 200, $headers);
   }
 
