@@ -3,6 +3,7 @@
 namespace Drupal\entity_pdf\Controller;
 
 use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
 use Mpdf\Mpdf;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Controller\NodeViewController;
@@ -37,6 +38,10 @@ class PdfNodeController extends NodeViewController {
     // Get mpdf's default config and allow other modules to alter it.
     $mpdf_config = [];
     $mpdf_config['tempDir'] = DRUPAL_ROOT . '/sites/default/files/entity_pdf';
+    $defaultConfig = (new ConfigVariables())->getDefaults();
+    $mpdf_config['fontDir'] = $defaultConfig['fontDir'];
+    $defaultFontConfig = (new FontVariables())->getDefaults();
+    $mpdf_config['fontdata'] = $defaultFontConfig['fontdata'];
     \Drupal::moduleHandler()->alter('mpdf_config', $mpdf_config);
 
     // Build and return the pdf.
