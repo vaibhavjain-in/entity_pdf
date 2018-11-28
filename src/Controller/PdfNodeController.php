@@ -19,10 +19,13 @@ class PdfNodeController extends NodeViewController {
    * Public function view.
    */
   public function view(EntityInterface $node, $view_mode = 'full', $langcode = NULL) {
+    global $base_url;
+
     $build = [
       '#theme' => 'htmlpdf',
       '#title' => parent::title($node),
       '#content' => parent::view($node, $view_mode, $langcode),
+      '#base_url' => $base_url,
     ];
 
     $output = render($build);
