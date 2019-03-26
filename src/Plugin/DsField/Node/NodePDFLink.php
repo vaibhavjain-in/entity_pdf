@@ -47,7 +47,7 @@ class NodePDFLink extends Link {
       $build = parent::build();
       if ($build['#context']['is_link']) {
         $route_parameters = [
-          'node' => $this->entity()->id(),
+          'entity' => $this->entity()->id(),
           'view_mode' => $config['view mode'],
         ];
         $entity_url = new Url('entity_pdf.node', $route_parameters);
