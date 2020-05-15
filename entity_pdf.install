@@ -8,3 +8,12 @@ function entity_pdf_update_8001() {
     ->set('filename', '[node:nid].pdf')
     ->save();
 }
+
+/**
+ * Add default config for tempDir
+ */
+function entity_pdf_update_8002() {
+  \Drupal::configFactory()->getEditable('entity_pdf.settings')
+    ->set('tempDir', 'sites/default/files/entity_pdf')
+    ->save();
+}

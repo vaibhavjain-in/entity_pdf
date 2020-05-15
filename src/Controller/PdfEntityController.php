@@ -40,7 +40,7 @@ class PdfEntityController extends EntityViewController {
 
     // Get mpdf's default config and allow other modules to alter it.
     $mpdf_config = [];
-    $mpdf_config['tempDir'] = DRUPAL_ROOT . '/sites/default/files/entity_pdf';
+    $mpdf_config['tempDir'] = DRUPAL_ROOT . '/' . $config->get('tempDir');
     $defaultConfig = (new ConfigVariables())->getDefaults();
     $mpdf_config['fontDir'] = $defaultConfig['fontDir'];
     $defaultFontConfig = (new FontVariables())->getDefaults();

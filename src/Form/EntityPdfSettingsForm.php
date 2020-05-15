@@ -43,6 +43,13 @@ class EntityPdfSettingsForm extends ConfigFormBase {
       '#description' => $this->t('You can use node tokens.')
     ];
 
+    $form['tempDir'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('tempDir: DRUPAL_ROOT/'),
+      '#default_value' => $config->get('tempDir') ?: 'sites/default/files/entity_pdf',
+      '#description' => $this->t('Do not include a leading slash.')
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -52,6 +59,7 @@ class EntityPdfSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('entity_pdf.settings');
     $config->set('filename', $form_state->getValue('filename'));
+    $config->set('tempDir', $form_state->getValue('tempDir'));
     $config->save();
     parent::submitForm($form, $form_state);
   }
