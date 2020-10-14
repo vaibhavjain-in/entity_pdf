@@ -49,6 +49,8 @@ class PdfEntityController extends EntityViewController {
 
     // Build and return the pdf.
     $mpdf = new Mpdf($mpdf_config);
+    $mpdf->autoScriptToLang = true;
+    $mpdf->autoLangToFont = true;
     $mpdf->SetBasePath(\Drupal::request()->getSchemeAndHttpHost());
     $mpdf->SetTitle($filename);
     $mpdf->WriteHTML($output);
