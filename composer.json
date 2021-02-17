@@ -2,7 +2,12 @@
   "name": "drupal/entity_pdf",
   "description": "Provides PDF output for entities.",
   "type": "drupal-module",
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  },
   "require": {
-    "mpdf/mpdf": "7.*"
+    "mpdf/mpdf": "^8.0"
   }
 }
