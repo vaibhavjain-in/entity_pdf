@@ -71,7 +71,7 @@ class NodePDFLink extends Link {
     $config = $this->getConfiguration();
 
     // @todo: dependency injection.
-    $view_mode_options = \Drupal::entityManager()->getViewModeOptionsByBundle($this->getEntityTypeId(), $this->bundle());
+    $view_mode_options = \Drupal::service('entity_display.repository')->getViewModeOptionsByBundle($this->getEntityTypeId(), $this->bundle());
 
     $form['view mode'] = [
       '#type' => 'select',
