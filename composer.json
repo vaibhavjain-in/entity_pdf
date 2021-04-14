@@ -1,5 +1,5 @@
 {
-  "name": "drupal/entity_pdf",
+  "name": "vaibhavjain-in/entity_pdf",
   "description": "Provides PDF output for entities.",
   "type": "drupal-module",
   "config": {
